@@ -3,6 +3,7 @@ const sinon = require('sinon')
 const { assert } = require('chai')
 
 const { DDBItemParser } = require('../../../src/libs/aws/dynamodb/item-parser')
+const { DDBDriver } = require('../../../src/libs/aws/dynamodb/driver')
 
 describe('DDB', () => {
   describe('instance', () => {
@@ -45,6 +46,12 @@ describe('DDB', () => {
       const result = await DDBDriver.instance.get('test_table', 'test2')
 
       assert.deepEqual(result, expectedResult)
+    })
+
+    it('should return undefined when fetch non-existing data', async () => {
+      const result = await DDBDriver.instance.get('test_table', 'non-existing')
+
+      assert.isUndefined(result)
     })
 
     it('should fetch with hk and rk', async () => {

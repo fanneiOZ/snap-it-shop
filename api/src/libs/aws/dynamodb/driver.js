@@ -39,7 +39,7 @@ class DDBDriver {
         })
     })
 
-    return DDBItemParser.parse(result.Item)
+    return result.Item ? DDBItemParser.parse(result.Item) : undefined
   }
 
   /**
