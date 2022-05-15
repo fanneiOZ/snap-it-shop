@@ -1,5 +1,3 @@
-const AWS = require('aws-sdk')
-AWS.config.update({ region: 'local', dynamodb: { endpoint: 'http://localhost:18000' } })
 const { DynamoDB } = require('aws-sdk')
 const { DDBItemSerializer } = require('./item-serlializer')
 const { DDBItemParser } = require('./item-parser')
@@ -24,19 +22,14 @@ class DDBDriver {
   }
 
   constructor() {
-    this.#ddb = new DynamoDB({ apiVersion: '2012-08-10' })
+    this.#ddb = new DynamoDB({ apiVersion: '2012-08-10', region: 'local', endpoint: 'http://localhost:18000' })
   }
 
   async get(tableName, hashKey, rangeKey = undefined) {
-    const attributeValues = { 'hk': { S: hashKey } }
-    let conditionExpr = 'hk = :hk'
-    if (rangeKey) {
-      attributeValues[':rk'] = { S: rangeKey }
-      conditionExpr = `${conditionExpr} and rk = :rk`
-    }
+    const keyValues = Object.assign({ hk: { S: hashKey } }, rangeKey ? { rk: { S: rangeKey } } : {})
     const result = await new Promise((resolve, reject) => {
       this.#ddb.getItem(
-        { TableName: tableName, Key: attributeValues },
+        { TableName: tableName, Key: keyValues },
         (err, data) => {
           if (err) {
             reject(err)

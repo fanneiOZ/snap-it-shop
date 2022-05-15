@@ -1,9 +1,9 @@
 const proxyquire = require('proxyquire')
 const sinon = require('sinon')
-const { DynamoDB } = require('aws-sdk')
 const { assert } = require('chai')
+
 const { DDBItemParser } = require('../../../src/libs/aws/dynamodb/item-parser')
-// const { DDBDriver } = proxyquire('')
+
 describe('DDB', () => {
   describe('instance', () => {
     const spy = sinon.spy()
@@ -35,7 +35,7 @@ describe('DDB', () => {
   describe('get', () => {
     const { DDBDriver } = require('../../../src/libs/aws/dynamodb/driver')
 
-    it('should fetch', async () => {
+    it('should fetch with only hk', async () => {
       const expectedResult = {
         a: { a: [ 1, "2", false ], k: "v" },
         hk: "test2",
@@ -43,6 +43,23 @@ describe('DDB', () => {
         v: 1234,
       }
       const result = await DDBDriver.instance.get('test_table', 'test2')
+
+      assert.deepEqual(result, expectedResult)
+    })
+
+    it('should fetch with hk and rk', async () => {
+      const expectedResult = {
+        "name": "CeraVe SA Smoothing Cleanser",
+        "rk": "3-337875-684118",
+        "hk": "store",
+        "barcode": "3-337875-684118",
+        "price": {
+          "amount": "47500",
+          "currency": "THB"
+        }
+      }
+
+      const result = await DDBDriver.instance.get('products', 'store', '3-337875-684118')
 
       assert.deepEqual(result, expectedResult)
     })
