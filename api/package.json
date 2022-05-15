@@ -1,0 +1,19 @@
+{
+  "name": "snap-it-shop-api",
+  "version": "1.0.0",
+  "description": "API for the shop",
+  "main": "index.js",
+  "repository": "https://github.com/fanneiOZ/snap-it-shop/",
+  "author": "Panya Batphantana <fanneioz@yahoo.co.th>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "aws-sdk": "^2.1135.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0",
+    "proxyquire": "^2.1.3",
+    "sinon": "^14.0.0"
+  }
+}
