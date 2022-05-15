@@ -16,7 +16,7 @@ class Money {
    * @return {Money}
    */
   static clone(money) {
-    return Money.createFromJson(money.value)
+    return Money.createFromJson(money.JSON)
   }
 
   /**
@@ -48,7 +48,7 @@ class Money {
   /**
    * @return {{amount: string, currency: string}}
    */
-  get value() {
+  get JSON() {
     return {
       amount: this.amount,
       currency: this.currencyCode,

@@ -17,7 +17,7 @@ describe('Money', () => {
     assert.strictEqual(x.rawAmount, 987654321)
     assert.strictEqual(x.amount, '987654321')
     assert.strictEqual(x.currencyCode, 'THB')
-    assert.deepEqual(x.value, {currency: 'THB', amount: '987654321'})
+    assert.deepEqual(x.JSON, {currency: 'THB', amount: '987654321'})
   })
 
   describe('sum', () => {
