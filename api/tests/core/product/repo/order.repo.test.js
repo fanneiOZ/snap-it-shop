@@ -22,5 +22,17 @@ describe('Order Repo', () => {
 
       assert.deepEqual(result, order)
     })
+
+    it('should resolve undefined', async () => {
+      const result = await OrderRepo.instance.get('customer-id', 'order')
+
+      assert.isUndefined(result)
+    })
+
+    it('should by customer', async () => {
+      const result = await OrderRepo.instance.getByCustomerId('customer-id')
+
+      console.log(result)
+    })
   })
 })

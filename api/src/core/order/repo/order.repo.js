@@ -16,6 +16,8 @@ class OrderRepo {
   }
 
   static entityFactory(dbState) {
+    if (!dbState) return undefined
+
     return new Order({
       customerId: dbState.hk,
       id: dbState.rk,
@@ -52,6 +54,12 @@ class OrderRepo {
     const item = await DDBDriver.instance.get(this.tableName, customerId, orderId)
 
     return OrderRepo.entityFactory(item)
+  }
+
+  async getByCustomerId(customerId) {
+    const items = await DDBDriver.instance.getByPartitionKey(this.tableName, customerId)
+
+    return items.map(OrderRepo.entityFactory)
   }
 
   async save(order) {

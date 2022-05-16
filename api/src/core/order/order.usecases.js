@@ -1,6 +1,7 @@
 const { OrderRepo } = require('./repo/order.repo')
 const { Order } = require('./model/order')
 const { OrderStatus } = require('./model/order-status')
+const { OrderDetail } = require('./model/order-detail')
 
 /**
  * Get order by ID
@@ -17,10 +18,22 @@ exports.getOrderById = async (customerId, orderId) => {
 }
 
 /**
+ * Get by CustomerId
+ *
+ * @param {string} customerId
+ * @return {Promise<Object[]>}
+ */
+exports.getOrdersByCustomerId = async (customerId) => {
+  const orders = await OrderRepo.instance.getByCustomerId(customerId)
+
+  return orders.map(order => order.JSON)
+}
+
+/**
  * Checkout
  *
  * @param {string} customerId
- * @param {OrderDetail[]} cart
+ * @param {Object[]} cart
  * @return {Promise<Object>}
  */
 exports.checkOut = async (customerId, cart) => {
@@ -28,7 +41,7 @@ exports.checkOut = async (customerId, cart) => {
     status: OrderStatus.CHECKED_OUT,
     customerId
   })
-  order.append(...cart)
+  order.append(...cart.map(item => new OrderDetail(item)))
 
   await OrderRepo.instance.save(order)
 
