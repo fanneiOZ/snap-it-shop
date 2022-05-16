@@ -42,6 +42,18 @@ class DDBDriver {
     return result.Item ? DDBItemParser.parse(result.Item) : undefined
   }
 
+  async getByPartitionKey(tableName, partitionKey) {
+    const params = {
+      TableName: tableName,
+      ExpressionAttributeValues: { ':hk': { S: partitionKey } },
+      KeyConditionExpression: 'hk = :hk',
+    }
+    const result = await this.#ddb.query(params).promise()
+
+    return result.Items.map(DDBItemParser.parse)
+  }
+
+
   /**
    *
    * @param {string} tableName

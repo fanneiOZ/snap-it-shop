@@ -71,6 +71,16 @@ describe('DDB', () => {
       assert.deepEqual(result, expectedResult)
     })
   })
+
+  describe('getByHashKey', () => {
+    const { DDBDriver } = require('../../../src/libs/aws/dynamodb/driver')
+
+    it('should fetch', async () => {
+      const result = await DDBDriver.instance.getByPartitionKey('orders', 'customer-id')
+
+      console.log(result)
+    })
+  })
 })
 
 describe('DDBItemParser', () => {
