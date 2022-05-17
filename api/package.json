@@ -16,5 +16,9 @@
     "mocha": "^10.0.0",
     "proxyquire": "^2.1.3",
     "sinon": "^14.0.0"
+  },
+  "scripts": {
+    "build:lambda:source": "cd src && zip -r ../data/source_code.zip . && cd -",
+    "build:lambda:layer": "yarn install && cp -R ./node_modules/ ./data/layer/nodejs && cd data/layer && zip -r ../node_modules_layer.zip . && cd -"
   }
 }
