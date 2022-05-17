@@ -56,6 +56,21 @@ describe('LambdaProxy', () => {
       "resourcePath": "/orders/{id}",
       "httpMethod": "GET",
       "extendedRequestId": "SQgzqH5lPHcF9TA=",
+      "authorizer": {
+        "claims": {
+          "at_hash": "z9OCNu-zvxUJtDYxx1yNOw",
+          "sub": "3936e584-7276-4bc2-9725-c742ddfc4c00",
+          "aud": "3t62hk811l5skv2t0lffeis6fm",
+          "email_verified": "true",
+          "token_use": "id",
+          "auth_time": "1652790667",
+          "iss": "https://cognito-idp.us-west-2.amazonaws.com/us-west-2_7E7yMv7A5",
+          "cognito:username": "test-user",
+          "exp": "Wed May 18 12:31:07 UTC 2022",
+          "iat": "Tue May 17 12:31:07 UTC 2022",
+          "email": "6470222021@student.chula.ac.th"
+        }
+      },
       "requestTime": "17/May/2022:07:00:39 +0000",
       "path": "/dev/orders/hello-test",
       "accountId": "839956791745",
@@ -99,6 +114,19 @@ describe('LambdaProxy', () => {
     const expectedRequest = {
       query: { a: 'b', c: 'value', d: [ '1', '2' ], e: '', k: 'true' },
       params: { id: 'hello-test' },
+      identity: {
+        at_hash: 'z9OCNu-zvxUJtDYxx1yNOw',
+        sub: '3936e584-7276-4bc2-9725-c742ddfc4c00',
+        aud: '3t62hk811l5skv2t0lffeis6fm',
+        email_verified: 'true',
+        token_use: 'id',
+        auth_time: '1652790667',
+        iss: 'https://cognito-idp.us-west-2.amazonaws.com/us-west-2_7E7yMv7A5',
+        'cognito:username': 'test-user',
+        exp: 'Wed May 18 12:31:07 UTC 2022',
+        iat: 'Tue May 17 12:31:07 UTC 2022',
+        email: '6470222021@student.chula.ac.th'
+      },
       body: { req: true },
     }
     const expectedResponse = { statusCode: 300, body: '{"k":"v"}' }
@@ -114,6 +142,19 @@ describe('LambdaProxy', () => {
     const expectedRequest = {
       query: { a: 'b', c: 'value', d: [ '1', '2' ], e: '', k: 'true' },
       params: { id: 'hello-test' },
+      identity: {
+        at_hash: 'z9OCNu-zvxUJtDYxx1yNOw',
+        sub: '3936e584-7276-4bc2-9725-c742ddfc4c00',
+        aud: '3t62hk811l5skv2t0lffeis6fm',
+        email_verified: 'true',
+        token_use: 'id',
+        auth_time: '1652790667',
+        iss: 'https://cognito-idp.us-west-2.amazonaws.com/us-west-2_7E7yMv7A5',
+        'cognito:username': 'test-user',
+        exp: 'Wed May 18 12:31:07 UTC 2022',
+        iat: 'Tue May 17 12:31:07 UTC 2022',
+        email: '6470222021@student.chula.ac.th'
+      },
       body: { req: true },
     }
     const expectedResponse = { statusCode: 500, body: '{"error_message":"test"}' }

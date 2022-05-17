@@ -28,9 +28,13 @@ function extractRequestFromLambdaEvent(event) {
       query[key] = baseObj[key].length === 1 ? baseObj[key][0] : baseObj[key]
     }
   }
+  const identity = event.hasOwnProperty('requestContext') && event['requestContext'].hasOwnProperty('authorizer')
+    ? event['requestContext']['authorizer']['claims']
+    : {}
 
   return {
     query,
+    identity,
     params: event.hasOwnProperty('pathParameters') ? event['pathParameters'] : {},
     body: event['body'] ? JSON.parse(event['body']) : {},
   }
