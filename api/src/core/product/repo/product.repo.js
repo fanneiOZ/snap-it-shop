@@ -65,3 +65,5 @@ class ProductRepo {
     await DDBDriver.instance.save(this.tableName, ProductRepo.dbStateFactory(product))
   }
 }
+
+module.exports = { ProductRepo }
