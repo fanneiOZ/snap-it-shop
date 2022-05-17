@@ -3,11 +3,12 @@ const orderUseCases = require('../../core/order/order.usecases')
 /**
  * GET /orders
  *
- * @param params
+ * @param identity
  * @return {Promise<{response: {orders: Object[]}, status: number}>}
  */
-exports.getOrdersByCustomerId = async ({ params }) => {
-  const orders = await orderUseCases.getOrdersByCustomerId('customer-id')
+exports.getOrdersByCustomerId = async ({ identity }) => {
+  const { 'cognito:username': customerId } = identity
+  const orders = await orderUseCases.getOrdersByCustomerId(customerId)
 
   return { status: 200, response: { orders } }
 }
@@ -16,10 +17,12 @@ exports.getOrdersByCustomerId = async ({ params }) => {
  * GET /orders/{id}
  *
  * @param params
+ * @param identity
  * @return {Promise<{response: {order: Object}, status: number}>}
  */
-exports.getOrderByOrderId = async ({ params }) => {
+exports.getOrderByOrderId = async ({ params, identity }) => {
   const { id } = params
+  const { 'cognito:username': customerId } = identity
   const order = await orderUseCases.getOrderById('customer-id', id)
 
   return { status: 200, response: { order } }
@@ -29,10 +32,12 @@ exports.getOrderByOrderId = async ({ params }) => {
  * POST /orders/{id}/confirm
  *
  * @param params
+ * @param identity
  * @return {Promise<{response: {order: Object}, status: number}>}
  */
-exports.confirmOrder = async ({ params }) => {
+exports.confirmOrder = async ({ params, identity }) => {
   const { id } = params
+  const { 'cognito:username': customerId } = identity
   const order = await orderUseCases.confirm('customer-id', id)
 
   return { status: 200, response: { order } }
@@ -42,11 +47,13 @@ exports.confirmOrder = async ({ params }) => {
  * POST /orders/{id}/cancel
  *
  * @param params
+ * @param identity
  * @return {Promise<{response: {order: Object}, status: number}>}
  */
-exports.cancelOrder = async ({ params }) => {
+exports.cancelOrder = async ({ params, identity }) => {
   const { id: orderId } = params
-  const order = await orderUseCases.cancel('customer-id', orderId)
+  const { 'cognito:username': customerId } = identity
+  const order = await orderUseCases.cancel(customerId, orderId)
 
   return { status: 200, response: { order } }
 }
@@ -55,15 +62,17 @@ exports.cancelOrder = async ({ params }) => {
  * POST /orders/checkout
  *
  * @param body
+ * @param identity
  * @return {Promise<{response: {order: Object} | Object, status: number}>}
  */
-exports.checkOutOrder = async ({ body }) => {
+exports.checkOutOrder = async ({ body, identity }) => {
+  const { 'cognito:username': customerId } = identity
   const { cart } = body
   if (!cart) {
     return { status: 400, response: {} }
   }
 
-  const order = await orderUseCases.checkOut('customer-id', cart)
+  const order = await orderUseCases.checkOut(customerId, cart)
 
   return { status: 200, response: { order } }
 }
@@ -75,9 +84,10 @@ exports.checkOutOrder = async ({ body }) => {
  * @param body
  * @return {Promise<{response: {order: Object}, status: number}>}
  */
-exports.payOrder = async ({ params, body }) => {
+exports.payOrder = async ({ params, identity }) => {
   const { id: orderId } = params
-  const order = await orderUseCases.pay('customer-id', orderId)
+  const { 'cognito:username': customerId } = identity
+  const order = await orderUseCases.pay(customerId, orderId)
 
   return { status: 200, response: { order } }
 }
