@@ -11,7 +11,7 @@ class Order {
 
     this.customerId = customerId
     this.status = new OrderStatus(status)
-    this.id = id ?? IdGen.generate('O')
+    this.id = id ?? IdGen.generate('O', 6)
     this.details = details ? details.map(detail => new OrderDetail(detail)) : []
     this.createdAt = createdAt ? new Date(createdAt) : new Date()
     this.updatedAt = updatedAt ? new Date(updatedAt) : new Date()
