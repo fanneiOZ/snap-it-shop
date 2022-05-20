@@ -22,7 +22,7 @@ class DDBDriver {
   }
 
   constructor() {
-    this.#ddb = new DynamoDB({ apiVersion: '2012-08-10', region: 'local', endpoint: 'http://localhost:18000' })
+    this.#ddb = new DynamoDB({ apiVersion: '2012-08-10', region: 'us-west-2' })
   }
 
   async get(tableName, hashKey, rangeKey = undefined) {
