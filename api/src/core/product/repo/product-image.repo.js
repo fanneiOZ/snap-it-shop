@@ -4,8 +4,11 @@ class ProductImageRepo {
   /**
    * @type {this}
    */
-  static #instance = undefined
+  static #instance
 
+  /**
+   * @return {ProductImageRepo}
+   */
   static get instance() {
     if (!(this.#instance && this.#instance instanceof ProductImageRepo)) {
       this.#instance = new ProductImageRepo()
