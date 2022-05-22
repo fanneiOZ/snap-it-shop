@@ -4,6 +4,7 @@ const { assert } = require('chai')
 
 const { DDBItemParser } = require('../../../src/libs/aws/dynamodb/item-parser')
 const { DDBDriver } = require('../../../src/libs/aws/dynamodb/driver')
+const { setupAws } = require('../../../src/libs/aws/config')
 
 describe('DDB', () => {
   describe('instance', () => {
@@ -35,6 +36,10 @@ describe('DDB', () => {
   })
   describe('get', () => {
     const { DDBDriver } = require('../../../src/libs/aws/dynamodb/driver')
+
+    beforeEach(() => {
+      setupAws()
+    })
 
     it('should fetch with only hk', async () => {
       const expectedResult = {
@@ -76,6 +81,7 @@ describe('DDB', () => {
     const { DDBDriver } = require('../../../src/libs/aws/dynamodb/driver')
 
     it('should fetch', async () => {
+      setupAws()
       const result = await DDBDriver.instance.getByPartitionKey('orders', 'customer-id')
 
       console.log(result)
