@@ -28,7 +28,7 @@ exports.LambdaProxy = (controller) => {
 
 function extractRequestFromLambdaEvent(event) {
   const query = {}
-  if (event.hasOwnProperty('multiValueQueryStringParameters')) {
+  if (event.hasOwnProperty('multiValueQueryStringParameters') && event['multiValueQueryStringParameters']) {
     const baseObj = event['multiValueQueryStringParameters']
     for (const key of Object.keys(baseObj)) {
       query[key] = baseObj[key].length === 1 ? baseObj[key][0] : baseObj[key]

@@ -1,7 +1,7 @@
 const { OrderStatus } = require('./order-status')
 const { OrderDetail } = require('./order-detail')
 const { Money } = require('../../product/model/money')
-const { IdGen } = require('../../../../tests/libs/utils/id-gen')
+const { IdGen } = require('../../../libs/utils/id-gen')
 
 class Order {
   constructor({ id, status, details, createdAt, updatedAt, totalAmount, customerId }) {
