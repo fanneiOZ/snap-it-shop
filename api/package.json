@@ -9,6 +9,7 @@
   "private": false,
   "dependencies": {
     "aws-sdk": "^2.1135.0",
+    "dotenv": "^16.0.1",
     "nanoid": "^3.3.4"
   },
   "devDependencies": {
