@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
-
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" >
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,23 +11,42 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SnapItShop.NoActionBar">
+        android:theme="@style/Theme.SnapItShop"
+        android:hardwareAccelerated="false"
+        android:requestLegacyExternalStorage="true" >
+        <activity
+            android:name=".auth.LoginActivity"
+            android:exported="false"
+            android:label="Sign In"
+            android:parentActivityName=".HomeActivity">
+        </activity>
+        <activity
+            android:name=".auth.RegisterUserActivity"
+            android:exported="false"
+            android:label="Sign Up"
+            android:parentActivityName=".auth.LoginActivity">
+        </activity>
         <activity
             android:name=".ProductDetailActivity"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".snap.CameraActivity"
+            android:exported="false">
         </activity>
 
         <service
             android:name=".MyFirebaseMessagingService"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
