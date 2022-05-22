@@ -1,3 +1,5 @@
+const { HttpException } = require('../../http.exception')
+
 /**
  * @param {Function} controller
  */
@@ -9,12 +11,16 @@ exports.LambdaProxy = (controller) => {
 
       return {
         statusCode: status ?? 200,
-        body: JSON.stringify(response)
+        body: JSON.stringify(response),
       }
     } catch (e) {
+      const exception = !(e instanceof HttpException)
+        ? new HttpException(500, 'INTERNAL_ERROR', e.message)
+        : e
+
       return {
-        statusCode: 500,
-        body: JSON.stringify({ error_message: e.message })
+        statusCode: exception.statusCode,
+        body: JSON.stringify(exception.errorResponseBody),
       }
     }
   }
