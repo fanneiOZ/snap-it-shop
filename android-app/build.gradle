@@ -2,9 +2,12 @@
 buildscript {
     repositories {
         google()
+        maven { url 'https://maven.preemptive.com' }
     }
     dependencies {
         classpath 'com.google.gms:google-services:4.3.10'
+        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath 'com.preemptive.dasho:dasho-android:1.4.+'
     }
 }
 

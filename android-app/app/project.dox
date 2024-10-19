@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dasho mode="android" version="11.3.0">
+    <controlflow option="on">
+        <includelist>
+            <classes name="com.funnyfeb.snapitshop.**"/>
+        </includelist>
+        <excludelist>
+            <classes name="androidx.**"/>
+            <classes name="javax.inject.**"/>
+            <classes name="kotlin.**"/>
+            <classes name="retrofit2.**"/>
+            <classes name="okhttp3.**"/>
+        </excludelist>
+    </controlflow>
+    <stringencrypt option="on"/>
+    <injection/>
+</dasho>

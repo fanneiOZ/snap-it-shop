@@ -109,7 +109,7 @@ describe('LambdaProxy', () => {
   })
 
   it('should proxy the controller', async () => {
-    const stubController = sinon.stub().resolves({ response: { k: 'v' }, status: 300 })
+    const stubController = sinon.stub().resolves({ response: { orders: [] }, status: 300 })
     const expectedRequest = {
       query: { a: 'b', c: 'value', d: [ '1', '2' ], e: '', k: 'true' },
       params: { id: 'hello-test' },
